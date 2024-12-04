@@ -1,17 +1,23 @@
 import { Link } from "react-router-dom";
+import ITSLogin from "../../../Assets/Images/ITS/itswhite-logo.png";
 import QardanHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png";
 import { PageLayout } from "../../../Components/Layout/Page Layout";
-import { EyeIcon } from "@heroicons/react/16/solid";
-
+import { useForm } from "react-hook-form";
+import { Input } from "../../../Components/Shared";
 export const LoginWithITS = () => {
+  const { control, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
-    <PageLayout pageTitle="Login with ITS">
+    <PageLayout pageTitle="Login">
       <section className="bg-primary">
         <div className="flex flex-col lg:flex-row justify-between min-h-screen">
           {/* Left - Scrollable */}
           <div className="lg:w-1/2 px-5 xl:pl-12 pt-10 overflow-y-auto max-h-screen scrollbar-left">
             <div className="min-h-full flex flex-col">
-              <Link to="/" className="shrink-0">
+              <Link className="shrink-0" to="/">
                 <img src={QardanHasanaLogo} className="w-32" alt="Logo" />
               </Link>
               <div className="max-w-[450px] m-auto w-full py-16 flex-grow">
@@ -20,46 +26,48 @@ export const LoginWithITS = () => {
                     Login Burhani Qardan Hasana Nasik with ITS
                   </h2>
                 </header>
-                <form action="">
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-4">
-                    <input
+                    <Input
+                      name="its-number"
+                      label="ITS Number"
                       type="text"
-                      className="text-gray-800 text-base border border-gray-300 h-14 w-full focus:border-secondary focus:ring-0 rounded-lg px-4 py-3.5 placeholder:text-gray-500 placeholder:text-base"
-                      placeholder="ITS Number"
+                      dark={true}
+                      control={control}
+                      required
+                      icon="user"
+                      placeholder="Enter your ITS Number"
+                      autoComplete="itsnumber"
                     />
                   </div>
                   <div className="mb-6 relative">
-                    <input
+                    <Input
                       type="password"
-                      className="text-gray-800 text-base border border-gray-300 h-14 w-full focus:border-secondary focus:ring-0 rounded-lg px-4 py-3.5 placeholder:text-gray-500 placeholder:text-base"
-                      placeholder="Password"
+                      name="password"
+                      label="Password"
+                      control={control}
+                      placeholder="Enter your password"
+                      required={true}
+                      autoComplete="current-password"
+                      dark={true}
                     />
-                    <button
-                      type="button"
-                      className="absolute top-4 right-4 bottom-4"
-                    >
-                      <EyeIcon className="w-6 text-primary" />
-                    </button>
                   </div>
                   <div className="flex justify-between mb-7">
                     <div className="flex items-center space-x-3">
-                      <input
-                        type="checkbox"
-                        className="w-5 h-5 focus:ring-transparent rounded-full border border-gray-300 focus:accent-secondary text-secondary"
+                      <Input
                         name="remember"
-                        id="remember"
+                        type="checkbox"
+                        control={control}
+                        label="Remember me"
+                        dark={true}
+                        className="-text-dark text-base font-semibold"
                       />
-                      <label
-                        htmlFor="remember"
-                        className="text-text-dark text-base font-semibold"
-                      >
-                        Remember me
-                      </label>
                     </div>
                     <div>
                       <Link
                         to="/forgot-password/"
-                        className="text-text-dark font-semibold text-base underline"
+                        data-target="#multi-step-modal"
+                        className="modal-open text-text-dark font-semibold text-base underline"
                       >
                         Forgot Password?
                       </Link>
