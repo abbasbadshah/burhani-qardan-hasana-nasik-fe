@@ -1,6 +1,7 @@
+import { JamaatLogin } from "./Pages/Auth/Login/Jamaat Login";
+import { LoginWithITS } from "./Pages/Auth/Login/Login With ITS";
+import { RequestQardanHasana } from "./Pages/Dashboard/User/Request Qardan Hasana";
 import { FrontPage } from "./Pages/Home";
-import { Login } from "./Pages/Login/Login";
-import { LoginWithITS } from "./Pages/Login/Login With ITS";
 
 export const routes = [
   {
@@ -10,12 +11,18 @@ export const routes = [
   },
   {
     path: "login",
-    component: Login,
+    component: JamaatLogin,
     expect: true,
   },
   {
     path: "login-with-its",
     component: LoginWithITS,
     expect: true,
+  },
+  ,
+  {
+    path: "request-qardan-hasana",
+    component: RequestQardanHasana,
+    expect: false,
   },
 ];

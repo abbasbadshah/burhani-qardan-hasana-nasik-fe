@@ -1,84 +1,48 @@
-import { Link, useNavigate } from "react-router-dom";
-import ITSLogin from "../../../Assets/Images/ITS/itswhite-logo.png";
-import QardanHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png";
-import { PageLayout } from "../../../Components/Layout/Page Layout";
+import { Link } from "react-router-dom";
+import QardanHasanaLogo from "../../../../Assets/Images/Logo/qardanhassanalogo.png";
+import { PageLayout } from "../../../../Components/Layout/Page Layout";
 import { useForm } from "react-hook-form";
-import { Input } from "../../../Components/Shared";
+import { Input } from "../../../../Components/Shared";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { useAuth } from "../../../auth";
-
-export const Login = () => {
-  const { control, handleSubmit, setError } = useForm();
-  const navigate = useNavigate();
-  const { login } = useAuth();
+export const LoginWithITS = () => {
+  const { control, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Login With Jamaat Data:", data);
-    const loginSuccessful = login(data);
-
-    if (loginSuccessful) {
-      navigate("/");
-    } else {
-      setError("sabil-number", {
-        type: "manual",
-        message: "Invalid Sabil Number or Password",
-      });
-    }
+    console.log(data);
   };
-
   return (
-    <PageLayout pageTitle="Login">
+    <PageLayout pageTitle="Login with ITS Number" needComponents={false}>
       <section className="bg-primary">
         <div className="flex flex-col lg:flex-row justify-between min-h-screen">
           {/* Left - Scrollable */}
           <div className="lg:w-1/2 px-5 xl:pl-12 pt-10 overflow-y-auto max-h-screen scrollbar-left">
             <div className="min-h-full flex flex-col">
-              <Link className="shrink-0" to="/">
-                <img src={QardanHasanaLogo} className="w-32" alt="Logo" />
-              </Link>
+              <div className="flex justify-between items-center">
+                <Link className="shrink-0" to="/">
+                  <img src={QardanHasanaLogo} className="w-32" alt="Logo" />
+                </Link>
+                <button className="p-3.5 flex items-center justify-center text-white font-bold bg-[#B88029] hover:bg-amber-700 transition-colors rounded-lg">
+                  <Link to="/">Back to Default Login</Link>
+                </button>
+              </div>
               <div className="max-w-[450px] m-auto w-full py-16 flex-grow">
                 <header className="text-center mb-8">
                   <h2 className="text-text-dark text-4xl font-semibold font-poppins mb-2">
-                    Login Burhani Qardan Hasana Nasik Portal
+                    Login Burhani Qardan Hasana Nasik with ITS
                   </h2>
                 </header>
-                <div className="w-full">
-                  <Link
-                    to="/login-with-its/"
-                    className="inline-flex justify-center items-center gap-x-2 border border-white rounded-lg px-6 py-4 text-base text-gray-900 font-medium transition-colors"
-                  >
-                    <img
-                      src={ITSLogin}
-                      width="100%"
-                      height="100%"
-                      className="w-6"
-                      alt="ITS Login"
-                    />
-                    <span className="text-text-dark"> Login with ITS </span>
-                  </Link>
-                </div>
-                <div className="relative mt-6 mb-5">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300" />
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="bg-white px-2 text-base text-gray-600">
-                      Or continue with
-                    </span>
-                  </div>
-                </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-4">
                     <Input
-                      name="sabilNumber"
-                      label="Sabil Number"
+                      name="its-number"
+                      label="ITS Number"
                       type="text"
                       dark={true}
                       control={control}
                       required
                       icon={UserCircleIcon}
-                      placeholder="Enter your sabil number"
-                      autoComplete="sabilnumber"
+                      placeholder="Enter your ITS Number"
+                      autoComplete="itsnumber"
                     />
                   </div>
                   <div className="mb-6 relative">
@@ -90,18 +54,6 @@ export const Login = () => {
                       placeholder="Enter your password"
                       required={true}
                       autoComplete="current-password"
-                      rules={{
-                        minLength: {
-                          value: 8,
-                          message: "Password must be at least 8 characters",
-                        },
-                        pattern: {
-                          value:
-                            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                          message:
-                            "Password must include letters, numbers, and a special character",
-                        },
-                      }}
                       dark={true}
                     />
                   </div>

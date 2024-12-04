@@ -1,3 +1,11 @@
+import { PageLayout } from "../../Components/Layout/Page Layout";
 export const FrontPage = () => {
-  return <div>Frontpage</div>;
+  return (
+    <PageLayout
+      pageTitle="Burhani Qardan Hasana Trust Nasik"
+      pageHeading="Front Page"
+    >
+      <div>Frontpage</div>
+    </PageLayout>
+  );
 };

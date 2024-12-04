@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Home",
+    "icon": "ArchiveBoxIcon",
+    "path": "/"
+  },
+  {
+    "name": "Request Qardan Hasana",
+    "icon": "UserIcon",
+    "path": "/request-qardan-hasana/"
+  },
+  {
+    "name": "Report",
+    "icon": "TicketIcon",
+    "path": "/tickets"
+  },
+  {
+    "name": "Settings",
+    "icon": "Cog6ToothIcon",
+    "path": "/settings"
+  }
+]
