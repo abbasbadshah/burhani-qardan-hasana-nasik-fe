@@ -1,15 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ITSLogin from "../../../Assets/Images/ITS/itswhite-logo.png";
 import QardanHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png";
 import { PageLayout } from "../../../Components/Layout/Page Layout";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../Components/Shared";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../../../auth";
+
 export const Login = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, setError } = useForm();
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("Login With Jamaat Data:", data);
+    const loginSuccessful = login(data);
+
+    if (loginSuccessful) {
+      navigate("/");
+    } else {
+      setError("sabil-number", {
+        type: "manual",
+        message: "Invalid Sabil Number or Password",
+      });
+    }
   };
+
   return (
     <PageLayout pageTitle="Login">
       <section className="bg-primary">
@@ -54,15 +70,15 @@ export const Login = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-4">
                     <Input
-                      name="sabil-number"
+                      name="sabilNumber"
                       label="Sabil Number"
                       type="text"
                       dark={true}
                       control={control}
                       required
-                      icon="user"
+                      icon={UserCircleIcon}
                       placeholder="Enter your sabil number"
-                      autoComplete="sabilnnumber"
+                      autoComplete="sabilnumber"
                     />
                   </div>
                   <div className="mb-6 relative">

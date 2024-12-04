@@ -4,12 +4,22 @@ import {
   ExclamationCircleIcon,
   EyeIcon,
   EyeSlashIcon,
-  DocumentIcon,
-  CalendarIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
+
+const VARIANTS = {
+  primary: {
+    text: "text-primary-500",
+    border:
+      "border-primary-300 focus:ring-primary-500 focus:border-primary-500",
+    checkbox: "text-primary-600 focus:ring-primary-500",
+  },
+  secondary: {
+    text: "text-secondary-500",
+    border:
+      "border-secondary-300 focus:ring-secondary-500 focus:border-secondary-500",
+    checkbox: "text-secondary-600 focus:ring-secondary-500",
+  },
+};
 
 export const Input = ({
   type = "text",
@@ -21,37 +31,42 @@ export const Input = ({
   rules = {},
   disabled = false,
   required = false,
-  icon = null,
+  icon: IconComponent = null,
   variant = "primary",
   dark = false,
   autoComplete,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const IconMap = {
-    user: UserIcon,
-    mail: EnvelopeIcon,
-    phone: PhoneIcon,
-    calendar: CalendarIcon,
-    document: DocumentIcon,
+  const labelColorClass = dark ? "text-text-dark" : "text-text-light";
+  const variantStyles = VARIANTS[variant];
+
+  const renderLabel = () => {
+    if (!label || type === "checkbox" || type === "radio") return null;
+
+    return (
+      <label
+        htmlFor={name}
+        className={`block text-sm font-medium ${labelColorClass} mb-2 text-left`}
+      >
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+    );
   };
 
   const renderIcon = () => {
-    if (!icon) return null;
-    const IconComponent = IconMap[icon];
+    if (!IconComponent) return null;
+
     return (
       <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-        <IconComponent
-          className={`h-5 w-5 ${
-            variant === "primary" ? "text-primary-500" : "text-secondary-500"
-          }`}
-        />
+        <IconComponent className={`h-5 w-5 ${variantStyles.text}`} />
       </div>
     );
   };
 
   const renderPasswordToggle = () => {
     if (type !== "password") return null;
+
     return (
       <button
         type="button"
@@ -68,18 +83,10 @@ export const Input = ({
   };
 
   const inputType = type === "password" && showPassword ? "text" : type;
-  const labelColorClass = dark ? "text-text-dark" : "text-text-light";
 
   return (
     <div className={`w-full ${className}`}>
-      {label && type !== "checkbox" && type !== "radio" && (
-        <label
-          htmlFor={name}
-          className={`block text-sm font-medium ${labelColorClass} mb-2 text-left`}
-        >
-          {label} {required && <span className="text-red-500">*</span>}
-        </label>
-      )}
+      {renderLabel()}
 
       <Controller
         name={name}
@@ -93,7 +100,8 @@ export const Input = ({
           <div className="relative">
             {renderIcon()}
 
-            {type === "checkbox" || type === "radio" ? (
+            {/* Checkbox and Radio Input */}
+            {(type === "checkbox" || type === "radio") && (
               <div className="flex items-center">
                 <input
                   {...field}
@@ -102,11 +110,7 @@ export const Input = ({
                   id={name}
                   className={`
                     mr-2 h-5 w-5 
-                    ${
-                      variant === "primary"
-                        ? "text-primary-600 focus:ring-primary-500"
-                        : "text-secondary-600 focus:ring-secondary-500"
-                    }
+                    ${variantStyles.checkbox}
                     ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                   `}
                 />
@@ -122,7 +126,10 @@ export const Input = ({
                   </label>
                 )}
               </div>
-            ) : (
+            )}
+
+            {/* Text, Password, and Other Input Types */}
+            {!(type === "checkbox" || type === "radio") && (
               <input
                 {...field}
                 value={field.value || ""}
@@ -136,12 +143,8 @@ export const Input = ({
                 ref={field.ref}
                 className={`
                   w-full h-14 px-3 border rounded-md 
-                  ${icon ? "pl-10 " : "pl-3"}
-                  ${
-                    variant === "primary"
-                      ? "border-primary-300 focus:ring-primary-500 focus:border-primary-500"
-                      : "border-secondary-300 focus:ring-secondary-500 focus:border-secondary-500"
-                  }
+                  ${IconComponent ? "pl-10" : "pl-3"}
+                  ${variantStyles.border}
                   ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                 `}
               />
@@ -149,6 +152,7 @@ export const Input = ({
 
             {renderPasswordToggle()}
 
+            {/* Error Icon */}
             {error && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
@@ -158,7 +162,7 @@ export const Input = ({
         )}
       />
 
-      {/* Error message */}
+      {/* Error Message */}
       <Controller
         name={name}
         control={control}

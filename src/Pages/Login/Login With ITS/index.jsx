@@ -4,6 +4,7 @@ import QardanHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png"
 import { PageLayout } from "../../../Components/Layout/Page Layout";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../Components/Shared";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 export const LoginWithITS = () => {
   const { control, handleSubmit } = useForm();
 
@@ -17,9 +18,14 @@ export const LoginWithITS = () => {
           {/* Left - Scrollable */}
           <div className="lg:w-1/2 px-5 xl:pl-12 pt-10 overflow-y-auto max-h-screen scrollbar-left">
             <div className="min-h-full flex flex-col">
-              <Link className="shrink-0" to="/">
-                <img src={QardanHasanaLogo} className="w-32" alt="Logo" />
-              </Link>
+              <div className="flex justify-between items-center">
+                <Link className="shrink-0" to="/">
+                  <img src={QardanHasanaLogo} className="w-32" alt="Logo" />
+                </Link>
+                <button className="p-3.5 flex items-center justify-center text-white font-bold bg-[#B88029] hover:bg-amber-700 transition-colors rounded-lg">
+                  <Link to='/'>Back to Default Login</Link>
+                </button>
+              </div>
               <div className="max-w-[450px] m-auto w-full py-16 flex-grow">
                 <header className="text-center mb-8">
                   <h2 className="text-text-dark text-4xl font-semibold font-poppins mb-2">
@@ -35,7 +41,7 @@ export const LoginWithITS = () => {
                       dark={true}
                       control={control}
                       required
-                      icon="user"
+                      icon={UserCircleIcon}
                       placeholder="Enter your ITS Number"
                       autoComplete="itsnumber"
                     />

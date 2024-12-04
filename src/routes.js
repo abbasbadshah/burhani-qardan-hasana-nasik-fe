@@ -1,9 +1,15 @@
+import { FrontPage } from "./Pages/Home";
 import { Login } from "./Pages/Login/Login";
 import { LoginWithITS } from "./Pages/Login/Login With ITS";
 
 export const routes = [
   {
-    path: "/",
+    path: "",
+    component: FrontPage,
+    expect: false,
+  },
+  {
+    path: "login",
     component: Login,
     expect: true,
   },
