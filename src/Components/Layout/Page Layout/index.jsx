@@ -4,6 +4,7 @@ import { Sidebar } from "../../Common/Sidebar";
 import { Helmet } from "react-helmet";
 
 export const PageLayout = ({
+  className,
   pageTitle,
   children,
   needComponents = true,
@@ -48,7 +49,7 @@ export const PageLayout = ({
         <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
         <main className="flex-1 p-4 flex flex-col gap-10 h-full lg:h-screen">
-          <PageHeader pageHeading={pageHeading} />
+          <PageHeader pageHeading={pageHeading} className={className} />
           {children}
         </main>
       </div>

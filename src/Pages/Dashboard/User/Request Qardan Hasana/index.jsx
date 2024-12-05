@@ -5,7 +5,7 @@ import { Input, GeneratePDF } from "../../../../Components/Shared";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
 export const RequestQardanHasana = () => {
-  const { control, handleSubmit, getValues } = useForm();
+  const { control, handleSubmit } = useForm();
   const [pdfUrl, setPdfUrl] = useState(null);
 
   const onSubmit = async (data) => {
@@ -31,7 +31,7 @@ export const RequestQardanHasana = () => {
       pageTitle="Request Qardan Hasana"
       pageHeading="Request Qardan Hasana"
     >
-      <section className="w-full bg-primary h-[100vh] overflow-y-scroll rounded-md p-6">
+      <section className="w-full bg-primary h-full lg:h-[100vh] lg:overflow-y-scroll rounded-md p-6 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-md">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col justify-between gap-10 h-full"
