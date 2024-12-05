@@ -1,4 +1,3 @@
 import Input from "./Input";
-export {
-    Input
-}
+import { GeneratePDF } from "./PDF";
+export { Input, GeneratePDF };

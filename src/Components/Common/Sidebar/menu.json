@@ -5,14 +5,14 @@
     "path": "/"
   },
   {
+    "name": "Installment",
+    "icon": "TicketIcon",
+    "path": "/installment/"
+  },
+  {
     "name": "Request Qardan Hasana",
     "icon": "UserIcon",
     "path": "/request-qardan-hasana/"
-  },
-  {
-    "name": "Report",
-    "icon": "TicketIcon",
-    "path": "/tickets"
   },
   {
     "name": "Settings",

@@ -1,5 +1,6 @@
 import { JamaatLogin } from "./Pages/Auth/Login/Jamaat Login";
 import { LoginWithITS } from "./Pages/Auth/Login/Login With ITS";
+import { UserInstallment } from "./Pages/Dashboard/User/Installments";
 import { RequestQardanHasana } from "./Pages/Dashboard/User/Request Qardan Hasana";
 import { FrontPage } from "./Pages/Home";
 
@@ -19,10 +20,14 @@ export const routes = [
     component: LoginWithITS,
     expect: true,
   },
-  ,
   {
     path: "request-qardan-hasana",
     component: RequestQardanHasana,
+    expect: false,
+  },
+  {
+    path: "installment",
+    component: UserInstallment,
     expect: false,
   },
 ];

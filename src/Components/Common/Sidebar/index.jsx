@@ -1,17 +1,52 @@
-import QardabHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png";
-import * as HeroIcons from "@heroicons/react/24/outline";
+import React, {useEffect, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
+import * as HeroIcons from "@heroicons/react/24/outline";
+import QardabHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png";
 import menu from "./menu.json";
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
+  const sidebarRef = useRef(null);
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isOpen && 
+        sidebarRef.current && 
+        !sidebarRef.current.contains(event.target)
+      ) {
+        onClose();
+      }
+    };
+
+    // Add click event listener to document
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   return (
-    <aside className="flex flex-col w-fit h-screen px-4 py-8 overflow-y-auto bg-primary border-r border-gray-700">
-      <Link to="/">
-        <img className="w-32" src={QardabHasanaLogo} alt="Qardan Hasana Logo" />
-      </Link>
-      <div className="relative mt-6">
+    <aside 
+      ref={sidebarRef}
+      className={`fixed lg:static z-50 top-0 left-0 w-fit h-screen bg-primary border-r border-gray-700 transform transition-transform duration-300 ease-in-out 
+      ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+    >
+      <div className="flex justify-between items-center p-4">
+        <Link to="/">
+          <img
+            className="w-32"
+            src={QardabHasanaLogo}
+            alt="Qardan Hasana Logo"
+          />
+        </Link>
+        <HeroIcons.XMarkIcon
+          className="w-6 text-white block lg:hidden cursor-pointer"
+          onClick={onClose}
+        />
+      </div>
+      <div className="relative mt-6 px-4">
         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
           <HeroIcons.MagnifyingGlassIcon className="w-5 text-white" />
         </span>
@@ -21,14 +56,11 @@ export const Sidebar = () => {
           placeholder="Search"
         />
       </div>
-      <div className="flex flex-col justify-between flex-1 mt-6">
+      <div className="flex flex-col justify-between flex-1 mt-6 px-4">
         <div>
           <nav>
             {menu.map((item, index) => {
-              // Dynamically get the icon component from HeroIcons
               const Icon = HeroIcons[item.icon];
-              
-              // Check if the current path matches the menu item path
               const isActive = location.pathname === item.path;
 
               return (
@@ -36,12 +68,16 @@ export const Sidebar = () => {
                   key={index}
                   to={item.path}
                   className={`flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md ${
-                    isActive 
-                      ? "bg-white text-primary" 
+                    isActive
+                      ? "bg-white text-primary"
                       : "text-gray-400 hover:bg-gray-800 hover:text-gray-200"
                   }`}
                 >
-                  <Icon className={`w-5 ${isActive ? "text-primary" : "text-white"}`} />
+                  <Icon
+                    className={`w-5 ${
+                      isActive ? "text-primary" : "text-white"
+                    }`}
+                  />
                   <span className="mx-4 font-medium">{item.name}</span>
                 </Link>
               );
