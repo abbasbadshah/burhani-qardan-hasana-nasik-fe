@@ -1,3 +1,4 @@
+import { Error404 } from "./Pages/404 Error";
 import { JamaatLogin } from "./Pages/Auth/Login/Jamaat Login";
 import { LoginWithITS } from "./Pages/Auth/Login/Login With ITS";
 import { UserInstallment } from "./Pages/Dashboard/User/Installments";
@@ -28,6 +29,11 @@ export const routes = [
   {
     path: "installment",
     component: UserInstallment,
+    expect: false,
+  },
+  {
+    path: "404-error",
+    component: Error404,
     expect: false,
   },
 ];

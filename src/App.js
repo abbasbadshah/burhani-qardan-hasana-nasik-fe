@@ -33,7 +33,7 @@ function App() {
                 element={getComponent(route.component, !route.expect)}
               />
             ))}
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="*" element={<Navigate to="/404-error/" replace />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
