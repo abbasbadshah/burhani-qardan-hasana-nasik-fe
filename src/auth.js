@@ -13,11 +13,20 @@ export const AuthProvider = ({ children }) => {
   );
 
   const login = (credentials) => {
-    if (credentials.sabilNumber && credentials.password) {
+    const hasSabilNumber =
+      credentials.sabilNumber || credentials.sabilNumber === "";
+    const hasITSNumber =
+      credentials["its-number"] || credentials["its-number"] === "";
+
+    const hasPassword =
+      credentials.password && credentials.password.trim() !== "";
+
+    if ((hasSabilNumber || hasITSNumber) && hasPassword) {
       localStorage.setItem("isAuthenticated", "true");
       setIsAuthenticated(true);
       return true;
     }
+
     return false;
   };
 
@@ -32,6 +41,7 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 export const useAuth = () => useContext(AuthContext);
 
 export const ProtectedRoute = ({ children }) => {

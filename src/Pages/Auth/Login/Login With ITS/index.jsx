@@ -35,7 +35,7 @@ export const LoginWithITS = () => {
                   <img src={QardanHasanaLogo} className="w-32" alt="Logo" />
                 </Link>
                 <button className="p-3.5 flex items-center justify-center text-white font-bold bg-[#B88029] hover:bg-amber-700 transition-colors rounded-lg">
-                  <Link to="/">Back to Default Login</Link>
+                  <Link to="/login/">Back to Default Login</Link>
                 </button>
               </div>
               <div className="max-w-[450px] m-auto w-full py-16 flex-grow">
