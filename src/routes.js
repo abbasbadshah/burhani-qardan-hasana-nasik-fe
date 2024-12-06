@@ -34,6 +34,6 @@ export const routes = [
   {
     path: "404-error",
     component: Error404,
-    expect: false,
+    expect: true,
   },
 ];

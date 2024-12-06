@@ -1,14 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QardanHasanaLogo from "../../../../Assets/Images/Logo/qardanhassanalogo.png";
 import { PageLayout } from "../../../../Components/Layout/Page Layout";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../../Components/Shared";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../../../../auth";
 export const LoginWithITS = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, setError } = useForm();
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("Login With ITS:", data);
+    const loginSuccessful = login(data);
+
+    if (loginSuccessful) {
+      navigate("/");
+    } else {
+      setError("its-number", {
+        type: "manual",
+        message: "Invalid ITS Number or Password",
+      });
+    }
   };
   return (
     <PageLayout pageTitle="Login with ITS Number" needComponents={false}>
