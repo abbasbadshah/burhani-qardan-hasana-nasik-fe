@@ -1,4 +1,4 @@
-import React, {useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as HeroIcons from "@heroicons/react/24/outline";
 import QardabHasanaLogo from "../../../Assets/Images/Logo/qardanhassanalogo.png";
@@ -12,8 +12,8 @@ export const Sidebar = ({ isOpen, onClose }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        isOpen && 
-        sidebarRef.current && 
+        isOpen &&
+        sidebarRef.current &&
         !sidebarRef.current.contains(event.target)
       ) {
         onClose();
@@ -21,17 +21,17 @@ export const Sidebar = ({ isOpen, onClose }) => {
     };
 
     // Add click event listener to document
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
 
   return (
-    <aside 
+    <aside
       ref={sidebarRef}
       className={`fixed lg:static z-50 top-0 left-0 w-fit h-screen bg-primary border-r border-gray-700 transform transition-transform duration-300 ease-in-out 
-      ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+      ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
     >
       <div className="flex justify-between items-center p-4">
         <Link to="/">
@@ -86,12 +86,10 @@ export const Sidebar = ({ isOpen, onClose }) => {
           <hr className="my-6 border-gray-600" />
         </div>
         <Link to="#" className="flex items-center px-4 -mx-2">
-          <img
-            className="object-cover mx-2 rounded-full h-9 w-9"
-            src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-            alt="avatar"
-          />
-          <span className="mx-2 font-medium text-gray-200">John Doe</span>
+         <HeroIcons.UserCircleIcon className="text-its-btn-primary-color w-7"/>
+          <span className="mx-2 font-medium text-gray-200">
+            Mulla Taher Bhai kapasi
+          </span>
         </Link>
       </div>
     </aside>

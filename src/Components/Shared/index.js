@@ -1,3 +1,3 @@
 import Input from "./Input";
-import { GeneratePDF } from "./PDF";
-export { Input, GeneratePDF };
+import { Loader } from "./Loader";
+export { Input, Loader };
